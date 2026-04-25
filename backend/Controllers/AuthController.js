@@ -20,11 +20,12 @@ module.exports.Signup = async (req, res, next) => {
     const user = await User.create({ email, password, username, createdAt });
     const token = createSecretToken(user._id);
 
-    res.cookie("token", token, {
-      withCredentials: true,
-      httpOnly: false,
-    });
-
+   res.cookie("token", token, {
+  withCredentials: true,
+  httpOnly: false,
+  sameSite: "none",  // ✅ required for cross-domain cookies
+  secure: true,      // ✅ required when sameSite is "none"
+});
     res.status(201).json({
       message: "User signed up successfully",
       success: true,
