@@ -12,7 +12,7 @@ const Menu = () => {
     const fetchUser = async () => {
       try {
         const { data } = await axios.post(
-          "http://localhost:3002/",
+          "https://mern-trading-platform-d93o.onrender.com/",
           {},
           { withCredentials: true }
         );

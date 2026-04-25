@@ -36,20 +36,21 @@ const Login = () => {
     }
     try {
       const { data } = await axios.post(
-        "http://localhost:3002/login",  // ✅ fixed from /auth/login
+        "https://mern-trading-platform-d93o.onrender.com/login", // ✅ render URL
         { ...values },
         { withCredentials: true }
       );
       if (data.success) {
         toast.success("Welcome back! 🎉");
         setTimeout(() => {
-          window.location.href ="http://localhost:3000"; // ✅ redirect to dashboard
+          window.location.href = "http://localhost:3000"; // ✅ dashboard (update after Netlify)
         }, 1000);
       } else {
         toast.error(data.message);
       }
     } catch (error) {
-      const message = error.response?.data?.message || "Login failed. Try again.";
+      const message =
+        error.response?.data?.message || "Login failed. Try again.";
       toast.error(message);
     }
   };
