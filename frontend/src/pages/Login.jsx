@@ -36,22 +36,20 @@ const Login = () => {
     }
     try {
       const { data } = await axios.post(
-        "https://mern-trading-platform-d93o.onrender.com/login", // ✅ render URL
+        "https://mern-trading-platform-d93o.onrender.com/login",
         { ...values },
         { withCredentials: true }
       );
       if (data.success) {
-  localStorage.setItem("token", data.token); // ✅ save token
-  toast.success("Welcome back! 🎉");
-  setTimeout(() => {
-    window.location.href = "https://merntrading.netlify.app";
-  }, 1000);
-} else {
+        toast.success("Welcome back! 🎉");
+        setTimeout(() => {
+          window.location.href = `https://merntrading.netlify.app?token=${data.token}`; // ✅ pass token in URL
+        }, 1000);
+      } else {
         toast.error(data.message);
       }
     } catch (error) {
-      const message =
-        error.response?.data?.message || "Login failed. Try again.";
+      const message = error.response?.data?.message || "Login failed. Try again.";
       toast.error(message);
     }
   };
@@ -60,7 +58,6 @@ const Login = () => {
     <div className="signup-container">
       <div className="signup-box">
         <h2>Login</h2>
-
         <input
           type="email"
           name="email"
@@ -69,7 +66,6 @@ const Login = () => {
           onChange={handleChange}
         />
         {errors.email && <p className="error">{errors.email}</p>}
-
         <input
           type="password"
           name="password"
@@ -78,9 +74,7 @@ const Login = () => {
           onChange={handleChange}
         />
         {errors.password && <p className="error">{errors.password}</p>}
-
         <button onClick={handleSubmit}>Login</button>
-
         <p>
           Don't have an account?{" "}
           <span

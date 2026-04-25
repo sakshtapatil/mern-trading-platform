@@ -10,31 +10,43 @@ const Menu = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-  try {
-    const token = localStorage.getItem("token"); // ✅ get token
-    if (!token) {
-      window.location.href = "https://mern-tradingplatform.netlify.app/login";
-      return;
-    }
-    const { data } = await axios.post(
-      "https://mern-trading-platform-d93o.onrender.com/",
-      {},
-      { 
-        headers: { Authorization: `Bearer ${token}` }, // ✅ send token in header
-        withCredentials: true 
+      try {
+        // ✅ check URL for token first
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlToken = urlParams.get("token");
+
+        if (urlToken) {
+          localStorage.setItem("token", urlToken); // save to localStorage
+          window.history.replaceState({}, document.title, "/"); // clean URL
+        }
+
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          window.location.href = "https://mern-tradingplatform.netlify.app/login";
+          return;
+        }
+
+        const { data } = await axios.post(
+          "https://mern-trading-platform-d93o.onrender.com/",
+          {},
+          {
+            headers: { Authorization: `Bearer ${token}` },
+            withCredentials: true,
+          }
+        );
+
+        if (data.status) {
+          setUser(data.user);
+          setEmail(data.email);
+        } else {
+          window.location.href = "https://mern-tradingplatform.netlify.app/login";
+        }
+      } catch (error) {
+        console.error("Auth check failed:", error);
+        window.location.href = "https://mern-tradingplatform.netlify.app/login";
       }
-    );
-    if (data.status) {
-      setUser(data.user);
-      setEmail(data.email);
-    } else {
-      window.location.href = "https://mern-tradingplatform.netlify.app/login";
-    }
-  } catch (error) {
-    console.error("Auth check failed:", error);
-    window.location.href = "https://mern-tradingplatform.netlify.app/login";
-  }
-};
+    };
     fetchUser();
   }, []);
 
@@ -47,9 +59,9 @@ const Menu = () => {
   };
 
   const handleLogout = () => {
-  localStorage.removeItem("token"); // ✅ clear token
-  window.location.href = "https://mern-tradingplatform.netlify.app/login";
-};
+    localStorage.removeItem("token");
+    window.location.href = "https://mern-tradingplatform.netlify.app/login";
+  };
 
   const getInitials = (name) => {
     if (!name) return "ZU";
@@ -70,78 +82,44 @@ const Menu = () => {
       <div className="menus">
         <ul>
           <li>
-            <Link
-              style={{ textDecoration: "none" }}
-              to="/"
-              onClick={() => handleMenuClick(0)}
-            >
-              <p className={selectedMenu === 0 ? activeMenuClass : menuClass}>
-                Dashboard
-              </p>
+            <Link style={{ textDecoration: "none" }} to="/" onClick={() => handleMenuClick(0)}>
+              <p className={selectedMenu === 0 ? activeMenuClass : menuClass}>Dashboard</p>
             </Link>
           </li>
           <li>
-            <Link
-              style={{ textDecoration: "none" }}
-              to="/orders"
-              onClick={() => handleMenuClick(1)}
-            >
-              <p className={selectedMenu === 1 ? activeMenuClass : menuClass}>
-                Orders
-              </p>
+            <Link style={{ textDecoration: "none" }} to="/orders" onClick={() => handleMenuClick(1)}>
+              <p className={selectedMenu === 1 ? activeMenuClass : menuClass}>Orders</p>
             </Link>
           </li>
           <li>
-            <Link
-              style={{ textDecoration: "none" }}
-              to="/holdings"
-              onClick={() => handleMenuClick(2)}
-            >
-              <p className={selectedMenu === 2 ? activeMenuClass : menuClass}>
-                Holdings
-              </p>
+            <Link style={{ textDecoration: "none" }} to="/holdings" onClick={() => handleMenuClick(2)}>
+              <p className={selectedMenu === 2 ? activeMenuClass : menuClass}>Holdings</p>
             </Link>
           </li>
           <li>
-            <Link
-              style={{ textDecoration: "none" }}
-              to="/positions"
-              onClick={() => handleMenuClick(3)}
-            >
-              <p className={selectedMenu === 3 ? activeMenuClass : menuClass}>
-                Positions
-              </p>
+            <Link style={{ textDecoration: "none" }} to="/positions" onClick={() => handleMenuClick(3)}>
+              <p className={selectedMenu === 3 ? activeMenuClass : menuClass}>Positions</p>
             </Link>
           </li>
           <li>
-            <Link
-              style={{ textDecoration: "none" }}
-              to="/funds"
-              onClick={() => handleMenuClick(4)}
-            >
-              <p className={selectedMenu === 4 ? activeMenuClass : menuClass}>
-                Funds
-              </p>
+            <Link style={{ textDecoration: "none" }} to="/funds" onClick={() => handleMenuClick(4)}>
+              <p className={selectedMenu === 4 ? activeMenuClass : menuClass}>Funds</p>
             </Link>
           </li>
           <li>
-            <Link
-              style={{ textDecoration: "none" }}
-              to="/apps"
-              onClick={() => handleMenuClick(6)}
-            >
-              <p className={selectedMenu === 6 ? activeMenuClass : menuClass}>
-                Apps
-              </p>
+            <Link style={{ textDecoration: "none" }} to="/apps" onClick={() => handleMenuClick(6)}>
+              <p className={selectedMenu === 6 ? activeMenuClass : menuClass}>Apps</p>
             </Link>
           </li>
         </ul>
         <hr />
 
         {/* Profile Section */}
-        <div className="profile" onClick={handleProfileClick}>
-          <div className="avatar">{getInitials(user)}</div>
-          <p className="username">{user || "Loading..."}</p>
+        <div style={{ position: "relative" }}>
+          <div className="profile" onClick={handleProfileClick}>
+            <div className="avatar">{getInitials(user)}</div>
+            <p className="username">{user || "Loading..."}</p>
+          </div>
 
           {/* Dropdown */}
           {isProfileDropdownOpen && (
