@@ -265,7 +265,7 @@ code {
 .profile-dropdown {
   position: absolute;
   top: 40px;
-  right: 0;   
+  left: 0;   
        /* ✅ right side */
   background: #fff;
   border: 1px solid #ddd;
