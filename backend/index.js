@@ -19,7 +19,12 @@ const app = express();
 
 // Middleware
 app.use(cors({
-   origin: ["http://localhost:3000", "http://localhost:3001"],
+  origin: [
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "https://mern-tradingplatform.netlify.app",
+    "https://merntrading.netlify.app",
+  ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 }));

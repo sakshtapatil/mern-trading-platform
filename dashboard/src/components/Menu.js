@@ -20,11 +20,11 @@ const Menu = () => {
           setUser(data.user);
           setEmail(data.email);
         } else {
-          window.location.href = "http://localhost:3001/login";
+          window.location.href = "https://mern-tradingplatform.netlify.app/login";
         }
       } catch (error) {
         console.error("Auth check failed:", error);
-        window.location.href = "http://localhost:3001/login";
+        window.location.href = "https://mern-tradingplatform.netlify.app/login";
       }
     };
     fetchUser();
@@ -40,7 +40,7 @@ const Menu = () => {
 
   const handleLogout = () => {
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    window.location.href = "http://localhost:3001/login";
+    window.location.href = "https://mern-tradingplatform.netlify.app/login";
   };
 
   const getInitials = (name) => {

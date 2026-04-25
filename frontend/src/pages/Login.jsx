@@ -43,7 +43,7 @@ const Login = () => {
       if (data.success) {
         toast.success("Welcome back! 🎉");
         setTimeout(() => {
-          window.location.href = "http://localhost:3000"; // ✅ dashboard (update after Netlify)
+          window.location.href = "https://merntrading.netlify.app"; // ✅ dashboard (update after Netlify)
         }, 1000);
       } else {
         toast.error(data.message);
