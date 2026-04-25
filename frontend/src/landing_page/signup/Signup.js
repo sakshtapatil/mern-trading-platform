@@ -45,11 +45,12 @@ function Signup() {
         { withCredentials: true }
       );
       if (data.success) {
-        toast.success("Account created successfully! 🎉");
-        setTimeout(() => {
-          window.location.href = window.location.href = "https://merntrading.netlify.app"; // ✅ dashboard (update after Netlify)
-        }, 1000);
-      } else {
+  localStorage.setItem("token", data.token); // ✅ save token
+  toast.success("Account created successfully! 🎉");
+  setTimeout(() => {
+    window.location.href = "https://merntrading.netlify.app";
+  }, 1000);
+} else {
         toast.error(data.message);
       }
     } catch (error) {

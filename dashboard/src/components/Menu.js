@@ -10,23 +10,31 @@ const Menu = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      try {
-        const { data } = await axios.post(
-          "https://mern-trading-platform-d93o.onrender.com/",
-          {},
-          { withCredentials: true }
-        );
-        if (data.status) {
-          setUser(data.user);
-          setEmail(data.email);
-        } else {
-          window.location.href = "https://mern-tradingplatform.netlify.app/login";
-        }
-      } catch (error) {
-        console.error("Auth check failed:", error);
-        window.location.href = "https://mern-tradingplatform.netlify.app/login";
+  try {
+    const token = localStorage.getItem("token"); // ✅ get token
+    if (!token) {
+      window.location.href = "https://mern-tradingplatform.netlify.app/login";
+      return;
+    }
+    const { data } = await axios.post(
+      "https://mern-trading-platform-d93o.onrender.com/",
+      {},
+      { 
+        headers: { Authorization: `Bearer ${token}` }, // ✅ send token in header
+        withCredentials: true 
       }
-    };
+    );
+    if (data.status) {
+      setUser(data.user);
+      setEmail(data.email);
+    } else {
+      window.location.href = "https://mern-tradingplatform.netlify.app/login";
+    }
+  } catch (error) {
+    console.error("Auth check failed:", error);
+    window.location.href = "https://mern-tradingplatform.netlify.app/login";
+  }
+};
     fetchUser();
   }, []);
 
@@ -39,9 +47,9 @@ const Menu = () => {
   };
 
   const handleLogout = () => {
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    window.location.href = "https://mern-tradingplatform.netlify.app/login";
-  };
+  localStorage.removeItem("token"); // ✅ clear token
+  window.location.href = "https://mern-tradingplatform.netlify.app/login";
+};
 
   const getInitials = (name) => {
     if (!name) return "ZU";

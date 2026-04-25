@@ -26,11 +26,12 @@ module.exports.Signup = async (req, res, next) => {
   sameSite: "none",  // ✅ required for cross-domain cookies
   secure: true,      // ✅ required when sameSite is "none"
 });
-    res.status(201).json({
-      message: "User signed up successfully",
-      success: true,
-      user,
-    });
+res.status(201).json({ 
+  message: "User signed up successfully", 
+  success: true, 
+  user,
+  token: token  // ✅ add token
+});
 
     next();
   } catch (error) {
