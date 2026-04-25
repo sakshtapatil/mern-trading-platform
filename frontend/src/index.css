@@ -1,0 +1,97 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.nav-link{
+  margin-left:40px;
+}
+
+#supportHero{
+  background-color: rgb(56,126,209);
+  color:white;
+}
+
+#supportHero a{
+  color:white;
+}
+
+#supportWrapper{
+  display:flex;
+  justify-content: space-between;
+  margin:0 140px;
+}
+
+#supportHero input{
+  padding:20px 50px;
+  width:80%;
+  font-size:20px;
+  border:none;
+  border-radius:10px;
+}
+
+
+.signup-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f5f6fa;
+}
+
+.signup-box {
+  width: 320px;
+  padding: 30px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.signup-box h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.signup-box input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  outline: none;
+}
+
+.signup-box button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  background: #387ed1;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.signup-box button:hover {
+  background: #27ae60;
+}
+
+.signup-box p {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.signup-box span {
+  color: #3498db;
+  cursor: pointer;
+}
