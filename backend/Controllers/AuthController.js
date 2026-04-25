@@ -20,20 +20,20 @@ module.exports.Signup = async (req, res, next) => {
     const user = await User.create({ email, password, username, createdAt });
     const token = createSecretToken(user._id);
 
-   res.cookie("token", token, {
-  withCredentials: true,
-  httpOnly: false,
-  sameSite: "none",  // ✅ required for cross-domain cookies
-  secure: true,      // ✅ required when sameSite is "none"
-});
-res.status(201).json({ 
-  message: "User signed up successfully", 
-  success: true, 
-  user,
-  token: token  // ✅ add token
-});
+    res.cookie("token", token, {
+      withCredentials: true,
+      httpOnly: false,
+      sameSite: "none",
+      secure: true,
+    });
 
-    next();
+    return res.status(201).json({ 
+      message: "User signed up successfully", 
+      success: true, 
+      user,
+      token: token  // ✅ send token in response
+    });
+
   } catch (error) {
     console.error("Signup error:", error);
     res.status(500).json({ message: error.message, success: false });
@@ -63,14 +63,16 @@ module.exports.Login = async (req, res, next) => {
     res.cookie("token", token, {
       withCredentials: true,
       httpOnly: false,
+      sameSite: "none",
+      secure: true,
     });
 
-    res.status(200).json({
+    return res.status(200).json({
       message: "User logged in successfully",
       success: true,
+      token: token  // ✅ send token in response
     });
 
-    next();
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({ message: error.message, success: false });
@@ -79,7 +81,8 @@ module.exports.Login = async (req, res, next) => {
 
 module.exports.userVerification = (req, res) => {
   try {
-    const token = req.cookies.token;
+    // ✅ read from header OR cookie
+    const token = req.headers.authorization?.split(" ")[1] || req.cookies.token;
 
     if (!token) {
       return res.status(401).json({ status: false, message: "No token found" });
@@ -92,7 +95,7 @@ module.exports.userVerification = (req, res) => {
 
       const user = await User.findById(data.id);
       if (user) {
-        return res.status(200).json({ status: true, user: user.username });
+        return res.status(200).json({ status: true, user: user.username, email: user.email }); // ✅ added email
       } else {
         return res.status(401).json({ status: false, message: "User not found" });
       }
