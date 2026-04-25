@@ -16,7 +16,7 @@ code {
   width: 100%;
   height: 90vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* ✅ fixed */
   box-sizing: border-box;
 }
 
@@ -138,7 +138,6 @@ code {
   color: #c9c9c9;
 }
 
-/* sudo selectors */
 .btn-blue:hover {
   background: #74a7fa;
 }
@@ -244,12 +243,10 @@ code {
   color: rgb(72, 194, 55);
 }
 
-/* sudo selector */
 .item:hover {
   cursor: pointer;
 }
 
-/* Remove position relative from menu-container, keep your original */
 .menu-container {
   flex-basis: 68%;
   height: 100%;
@@ -258,23 +255,23 @@ code {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  overflow: visible; /* ✅ fixed */
 }
-
-/* Put position relative on profile instead */
 
 .profile-dropdown {
   position: absolute;
   top: 40px;
-  left: 0;   
-       /* ✅ right side */
+  right: 0;       /* ✅ fixed */
+  left: auto;
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 12px;
   width: 220px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  z-index: 9999;  /* ✅ higher z-index */
+  z-index: 9999;
 }
+
 .dropdown-header {
   display: flex;
   align-items: center;
@@ -327,6 +324,7 @@ code {
 .dropdown-menu li.logout {
   color: red;
 }
+
 .logo {
   width: 30px;
   height: 20px;
@@ -364,10 +362,12 @@ hr {
 }
 
 .profile {
+  position: relative; /* ✅ fixed */
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   margin-left: 20px;
+  cursor: pointer;
 }
 
 .profile .avatar {
@@ -391,8 +391,6 @@ hr {
   font-size: 0.8rem;
   font-weight: 300;
 }
-
-/* sudo selectors */
 
 .menu:hover {
   color: rgb(245, 104, 52);
@@ -443,106 +441,6 @@ hr {
 
 .btn:hover {
   background: rgb(110, 110, 253);
-}
-
-.title {
-  font-size: 1.3rem;
-  font-weight: 300;
-  color: rgb(71, 71, 71);
-  margin-bottom: 2%;
-}
-
-.order-table table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.order-table tr {
-  border-top: 1px solid rgb(211, 211, 211);
-  border-bottom: 1px solid rgb(211, 211, 211);
-}
-
-.order-table th {
-  text-align: right;
-  padding: 15px 10px;
-  color: rgb(145, 145, 145);
-  font-weight: 300;
-  font-size: 0.8rem;
-}
-
-.order-table tr th:first-child,
-.order-table tr td:first-child {
-  text-align: left;
-}
-
-.order-table tr td:first-child p {
-    background: rgb(255, 197, 197);
-    color: rgb(233, 120, 120);
-    width: 50%;
-    text-align: center;
-    border-radius: 2px;
-}
-
-.order-table tr td:last-child {
-  font-size: 0.6rem;
-}
-
-.order-table td {
-  padding: 10px 10px;
-  text-align: right;
-  font-weight: 400;
-  font-size: 0.9rem;
-  color: rgb(73, 73, 73);
-}
-
-.align-left {
-  text-align: left;
-}
-
-.order-table td.profit {
-  color: rgb(72, 194, 55);
-}
-
-.order-table td.loss {
-  color: rgb(250, 118, 78);
-}
-
-.row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 5%;
-}
-
-.col {
-  flex-basis: 33%;
-}
-
-.col h5 {
-  font-size: 1.8rem;
-  color: rgb(71, 71, 71);
-  font-weight: 300;
-}
-
-.col h5 span {
-  font-weight: 300;
-  font-size: 0.9rem;
-}
-
-.col p {
-  font-size: 0.8rem;
-  color: rgb(153, 153, 153);
-  font-weight: 300;
-  margin-top: 2%;
-}
-
-.row .col:last-child h5 {
-  color: rgb(72, 194, 55);
-}
-
-/* sudo selector */
-.item:hover {
-  cursor: pointer;
 }
 
 .username h6 {
@@ -641,7 +539,10 @@ hr {
   align-items: center;
   box-shadow: 0px 0px 4px 2px rgb(236, 235, 235);
   box-sizing: border-box;
-  z-index: 9;
+  z-index: 10;          /* ✅ fixed */
+  position: relative;   /* ✅ fixed */
+  background: #fff;     /* ✅ fixed */
+  overflow: visible;    /* ✅ fixed */
 }
 
 .indices-container {
@@ -660,7 +561,6 @@ hr {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  z-index: -2;
 }
 
 .sensex {
@@ -695,7 +595,6 @@ hr {
   color: rgb(146, 146, 146);
 }
 
-/* sudo selectors */
 .index:hover {
   cursor: pointer;
 }
@@ -707,6 +606,7 @@ hr {
   box-shadow: 0px 0px 4px 1px rgb(236, 235, 235);
   overflow-y: auto;
   position: relative;
+  z-index: 1;           /* ✅ fixed */
 }
 
 .search-container {
@@ -870,7 +770,6 @@ hr {
   color: rgb(105, 105, 105);
 }
 
-/* sudo selectors */
 .search:focus {
   outline: none;
 }
@@ -885,7 +784,6 @@ hr {
   cursor: move;
 }
 
-/* TODO */
 .list li::before {
   content: "";
   background: transparent;
@@ -908,68 +806,4 @@ hr {
 
 .action:hover {
   background-color: rgb(212, 212, 212);
-}
-
-.profile-dropdown {
-  position: absolute;
-  bottom: 70px;
-  left: 10px;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 12px;
-  width: 220px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  z-index: 999;
-}
-
-.dropdown-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
-}
-
-.avatar-large {
-  background-color: #387ed1;
-  color: white;
-  border-radius: 50%;
-  width: 45px;
-  height: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.dropdown-username {
-  font-weight: bold;
-  font-size: 14px;
-}
-
-.dropdown-role {
-  font-size: 12px;
-  color: #888;
-}
-
-.dropdown-menu {
-  list-style: none;
-  padding: 0;
-  margin: 8px 0 0 0;
-}
-
-.dropdown-menu li {
-  padding: 8px 10px;
-  cursor: pointer;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-.dropdown-menu li:hover {
-  background-color: #f5f5f5;
-}
-
-.dropdown-menu li.logout {
-  color: red;
 }
